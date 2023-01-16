@@ -1,0 +1,28 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg",
+      "first_air_date": "2022-11-23",
+      "genre_ids": [
+        10765,
+        9648,
+        35
+      ],
+      "id": 119051,
+      "name": "Wednesday",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Wednesday",
+      "overview": "After years of blood, sweat and tears, a woman of humble origin ends up becoming a drug trafficking legend, with all that that means...",
+      "popularity": 2666.909,
+      "poster_path": "/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+      "vote_average": 8.7,
+      "vote_count": 5142
+    }
+  ],
+  "total_pages": 7141,
+  "total_results": 142805
+}
