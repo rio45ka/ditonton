@@ -36,6 +36,7 @@ import 'package:core/presentation/provider/tv_series/tv_series_detail_notifier.d
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:search/presentation/bloc/search_bloc.dart';
 import 'package:search/search.dart';
 
 final locator = GetIt.instance;
@@ -117,6 +118,10 @@ void init() {
   );
   // endregion provider : TvSeries
   // region provider
+
+  // region bloc
+  locator.registerFactory(() => SearchBloc(locator()));
+  // endregion bloc
 
   // region use case
   // region usecase: movies
