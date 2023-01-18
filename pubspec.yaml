@@ -39,6 +39,11 @@ dependencies:
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
   flutter_bloc: ^8.0.0
+  
+  # region Firebase
+  firebase_core: ^2.4.1
+  firebase_crashlytics: ^3.0.10
+  # endregion Firebase
 
   # Add module project
   about:

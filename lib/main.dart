@@ -19,6 +19,8 @@ import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/provider/popular_movies_notifier.dart';
 import 'package:core/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +29,15 @@ import 'package:ditonton/injection.dart' as di;
 import 'package:search/presentation/bloc/search_bloc.dart';
 import 'package:search/search.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   di.init();
+
   runApp(MyApp());
 }
 
