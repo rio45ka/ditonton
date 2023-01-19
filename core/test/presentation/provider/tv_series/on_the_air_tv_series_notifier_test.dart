@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../movie_list_notifier_test.mocks.dart';
+import 'on_the_air_tv_series_notifier_test.mocks.dart';
+
 
 @GenerateMocks([GetOnTheAirTvSeriesUseCase])
 void main() {

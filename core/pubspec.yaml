@@ -23,6 +23,10 @@ dependencies:
   provider: ^6.0.3
   flutter_rating_bar: ^4.0.0
   firebase_crashlytics: ^3.0.10
+  rxdart: ^0.27.1
+
+  feature_movie:
+    path: ../feature_movie
 
 dev_dependencies:
   flutter_test:

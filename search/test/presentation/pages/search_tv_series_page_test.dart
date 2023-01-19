@@ -10,6 +10,7 @@ import 'package:search/presentation/provider/tv_series_search_notifier.dart';
 
 import 'search_tv_series_page_test.mocks.dart';
 
+
 @GenerateMocks([TvSeriesSearchNotifier])
 void main() {
   late MockTvSeriesSearchNotifier mockNotifier;

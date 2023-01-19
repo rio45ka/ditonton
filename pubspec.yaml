@@ -52,6 +52,8 @@ dependencies:
     path: core
   search:
     path: search
+  feature_movie:
+    path: feature_movie
 
 dev_dependencies:
   mockito: ^5.0.8
