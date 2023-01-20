@@ -1,8 +1,8 @@
 import 'package:core/domain/entities/genre.dart';
-import 'package:core/domain/entities/tv_series.dart';
 import 'package:feature_movie/data/models/movie_table.dart';
 import 'package:feature_movie/domain/entities/movie.dart';
 import 'package:feature_movie/domain/entities/movie_detail.dart';
+import 'package:feature_tv/domain/entities/tv_series.dart';
 
 final testMovie = Movie(
   adult: false,

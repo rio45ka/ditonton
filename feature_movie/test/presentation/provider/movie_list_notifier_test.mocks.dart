@@ -6,14 +6,6 @@
 import 'dart:async' as _i6;
 
 import 'package:core/core.dart' as _i7;
-import 'package:core/domain/entities/tv_series.dart' as _i12;
-import 'package:core/domain/repositories/tv_series_repository.dart' as _i4;
-import 'package:core/domain/usecases/tv_series/get_on_the_air_tv_series_usecase.dart'
-    as _i14;
-import 'package:core/domain/usecases/tv_series/get_popular_tv_series_usecase.dart'
-    as _i11;
-import 'package:core/domain/usecases/tv_series/get_top_rated_tv_series_usecase.dart'
-    as _i13;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:feature_movie/domain/entities/movie.dart' as _i8;
 import 'package:feature_movie/domain/repositories/movie_repository.dart' as _i2;
@@ -22,6 +14,15 @@ import 'package:feature_movie/domain/usecases/get_now_playing_movies.dart'
 import 'package:feature_movie/domain/usecases/get_popular_movies.dart' as _i9;
 import 'package:feature_movie/domain/usecases/get_top_rated_movies.dart'
     as _i10;
+import 'package:feature_tv/domain/entities/tv_series.dart' as _i12;
+import 'package:feature_tv/domain/repositories/tv_series_repository.dart'
+    as _i4;
+import 'package:feature_tv/domain/usecases/get_on_the_air_tv_series_usecase.dart'
+    as _i14;
+import 'package:feature_tv/domain/usecases/get_popular_tv_series_usecase.dart'
+    as _i11;
+import 'package:feature_tv/domain/usecases/get_top_rated_tv_series_usecase.dart'
+    as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

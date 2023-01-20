@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:core/core.dart';
 import 'package:feature_movie/data/models/movie_table.dart';
+import 'package:feature_tv/data/model/tv_series_table.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
-import '../../models/tv_series/tv_series_table.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;

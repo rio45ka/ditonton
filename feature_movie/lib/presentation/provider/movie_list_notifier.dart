@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
-import 'package:core/domain/entities/tv_series.dart';
-import 'package:core/domain/usecases/tv_series/get_on_the_air_tv_series_usecase.dart';
-import 'package:core/domain/usecases/tv_series/get_popular_tv_series_usecase.dart';
-import 'package:core/domain/usecases/tv_series/get_top_rated_tv_series_usecase.dart';
+import 'package:feature_tv/domain/entities/tv_series.dart';
+import 'package:feature_tv/domain/usecases/get_on_the_air_tv_series_usecase.dart';
+import 'package:feature_tv/domain/usecases/get_popular_tv_series_usecase.dart';
+import 'package:feature_tv/domain/usecases/get_top_rated_tv_series_usecase.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/movie.dart';
