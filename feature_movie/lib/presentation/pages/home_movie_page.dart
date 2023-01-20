@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/presentation/widgets/tv_series_list_horizontal_widget.dart';
 import 'package:core/utils/routes.dart';
+import 'package:feature_tv/presentation/widgets/tv_series_list_horizontal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

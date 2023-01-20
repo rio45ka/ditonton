@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:core/core.dart';
-import 'package:core/domain/usecases/tv_series/get_tv_series_watchlist_usecase.dart';
 import 'package:feature_movie/domain/usecases/get_watchlist_movies.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

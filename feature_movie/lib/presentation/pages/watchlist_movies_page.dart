@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/domain/entities/tv_series.dart';
-import 'package:core/presentation/widgets/tv_series_card_grid_widget.dart';
 import 'package:core/utils/routes.dart';
+import 'package:feature_tv/domain/entities/tv_series.dart';
+import 'package:feature_tv/presentation/widgets/tv_series_card_grid_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

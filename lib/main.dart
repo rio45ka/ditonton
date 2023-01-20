@@ -1,14 +1,6 @@
 import 'package:about/about.dart';
 import 'package:core/core.dart';
-import 'package:core/presentation/pages/tv_series/popular_tv_series_page.dart';
-import 'package:core/presentation/provider/tv_series/on_the_air_tv_series_notifier.dart';
-import 'package:core/presentation/provider/tv_series/popular_tv_series_notifier.dart';
-import 'package:core/presentation/provider/tv_series/top_rated_tv_series_notifier.dart';
-import 'package:core/presentation/provider/tv_series/tv_series_detail_notifier.dart';
 import 'package:core/utils/routes.dart';
-import 'package:core/presentation/pages/tv_series/on_the_air_tv_series_page.dart';
-import 'package:core/presentation/pages/tv_series/top_rated_tv_series_page.dart';
-import 'package:core/presentation/pages/tv_series/tv_series_detail_page.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_movie/presentation/pages/home_movie_page.dart';
@@ -22,13 +14,22 @@ import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:feature_tv/presentation/pages/on_the_air_tv_series_page.dart';
+import 'package:feature_tv/presentation/pages/popular_tv_series_page.dart';
+import 'package:feature_tv/presentation/pages/top_rated_tv_series_page.dart';
+import 'package:feature_tv/presentation/pages/tv_series_detail_page.dart';
+import 'package:feature_tv/presentation/pages/tv_series_search_page.dart';
+import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
+import 'package:feature_tv/presentation/provider/popular_tv_series_notifier.dart';
+import 'package:feature_tv/presentation/provider/top_rated_tv_series_notifier.dart';
+import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
+import 'package:feature_tv/presentation/provider/tv_series_search_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
-import 'package:search/search.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -6,12 +6,12 @@
 import 'dart:async' as _i4;
 
 import 'package:core/core.dart' as _i5;
-import 'package:core/domain/entities/tv_series.dart' as _i8;
-import 'package:core/domain/usecases/tv_series/get_tv_series_watchlist_usecase.dart'
-    as _i7;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:feature_movie/domain/entities/movie.dart' as _i6;
 import 'package:feature_movie/domain/usecases/get_watchlist_movies.dart' as _i3;
+import 'package:feature_tv/domain/entities/tv_series.dart' as _i8;
+import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_usecase.dart'
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

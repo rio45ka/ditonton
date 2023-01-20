@@ -2,11 +2,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:feature_movie/domain/entities/movie.dart';
+import 'package:feature_movie/domain/usecases/search_movies.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../../../feature_movie/lib/domain/usecases/search_movies.dart';
 
 import 'search_bloc_test.mocks.dart';
 
