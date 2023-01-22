@@ -1,4 +1,6 @@
 import 'package:core/database/database_helper.dart';
+import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart';
+import 'package:feature_movie/presentation/bloc/top_rated/top_rated_movies_bloc.dart';
 import 'package:feature_tv/data/datasources/tv_series_local_data_source.dart';
 import 'package:feature_tv/data/datasources/tv_series_remote_data_source.dart';
 import 'package:feature_tv/data/repositories/tv_series_repository_impl.dart';
@@ -37,7 +39,6 @@ import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
 import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
-import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/domain/usecases/search_tv_series_usecase.dart';
 import 'package:http/http.dart' as http;
@@ -68,11 +69,6 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => WatchlistMovieNotifier(
       getWatchlistMovies: locator(),
       getTvSeriesWatchlistUseCase: locator(),
@@ -84,6 +80,8 @@ void init() {
   // region bloc
   // region bloc: movie
   locator.registerFactory(() => SearchBloc(locator()));
+  locator.registerFactory(() => TopRatedMoviesBloc(locator()));
+  locator.registerFactory(() => PopularMoviesBloc(locator()));
   // endregion bloc: movie
 
   // region bloc: tv series

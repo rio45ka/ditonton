@@ -1,6 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:core/core.dart';
-import 'package:feature_movie/domain/entities/movie.dart';
 import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart';
 import 'package:feature_movie/presentation/pages/popular_movies_page.dart';
 
