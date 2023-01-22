@@ -1,26 +1,35 @@
-import 'package:core/core.dart';
-import 'package:feature_tv/domain/entities/tv_series.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
 import 'package:feature_tv/presentation/pages/popular_tv_series_page.dart';
-import 'package:feature_tv/presentation/provider/popular_tv_series_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'popular_tv_series_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([PopularTvSeriesNotifier])
+class MockPopularTvBloc extends MockBloc<PopularTvEvent, PopularTvState>
+    implements PopularTvBloc {}
+
+class PopularTvEventFake extends Fake implements PopularTvEvent {}
+
+class PopularTvStateFake extends Fake implements PopularTvState {}
+
 void main() {
-  late MockPopularTvSeriesNotifier mockNotifier;
+  late MockPopularTvBloc mockPopularTvBloc;
+
+  setUpAll(() {
+    registerFallbackValue(PopularTvEventFake());
+    registerFallbackValue(PopularTvStateFake());
+  });
 
   setUp(() {
-    mockNotifier = MockPopularTvSeriesNotifier();
+    mockPopularTvBloc = MockPopularTvBloc();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularTvSeriesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<PopularTvBloc>.value(
+      value: mockPopularTvBloc,
       child: MaterialApp(
         home: body,
       ),
@@ -29,7 +38,7 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+    when(() => mockPopularTvBloc.state).thenReturn(PopularTvLoadingState());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byKey(Key('loading_center'));
@@ -42,9 +51,8 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.tvSeriesList).thenReturn(<TvSeries>[]);
-
+    when(() => mockPopularTvBloc.state).thenReturn(PopularTvHasDataState(testTvSeriesList));
+    
     final listViewFinder = find.byType(ListView);
 
     await tester.pumpWidget(_makeTestableWidget(PopularTvSeriesPage()));
@@ -54,8 +62,7 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+    when(() => mockPopularTvBloc.state).thenReturn(PopularTvErrorState('Error message'));
 
     final textFinder = find.byKey(Key('error_message'));
 

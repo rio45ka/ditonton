@@ -14,16 +14,16 @@ import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
 import 'package:feature_tv/presentation/pages/on_the_air_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/popular_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/top_rated_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_detail_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_search_page.dart';
 import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
-import 'package:feature_tv/presentation/provider/popular_tv_series_notifier.dart';
 import 'package:feature_tv/presentation/provider/top_rated_tv_series_notifier.dart';
 import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
-import 'package:feature_tv/presentation/provider/tv_series_search_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,9 +67,6 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopRatedTvSeriesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<OnTheAirTvSeriesNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -77,6 +74,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<SearchTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PopularTvBloc>(),
         ),
       ],
       child: MaterialApp(
@@ -122,13 +125,7 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case SEARCH_TV_SERIES_ROUTE:
-              return CupertinoPageRoute(
-                builder: (_) => ChangeNotifierProvider(
-                  create: (_) => di.locator<TvSeriesSearchNotifier>(),
-                  child: TvSeriesSearchPage(),
-                ),
-              );
-
+              return CupertinoPageRoute(builder: (_) => TvSeriesSearchPage());
             default:
               return MaterialPageRoute(builder: (_) {
                 return Scaffold(

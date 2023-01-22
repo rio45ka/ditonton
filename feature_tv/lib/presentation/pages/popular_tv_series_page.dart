@@ -1,10 +1,8 @@
-import 'package:core/core.dart';
-import 'package:core/utils/routes.dart';
-import 'package:feature_tv/presentation/provider/popular_tv_series_notifier.dart';
-import 'package:feature_tv/presentation/widgets/tv_series_card_list_widget.dart';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:core/utils/routes.dart';
+import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
+import 'package:feature_tv/presentation/widgets/tv_series_card_list_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularTvSeriesPage extends StatefulWidget {
   @override
@@ -15,9 +13,8 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvSeriesNotifier>(context, listen: false)
-            .fetchPopularTvSeries());
+    Future.microtask(
+        () => context.read<PopularTvBloc>().add(FetchPopularTvSeries()));
   }
 
   @override
@@ -36,26 +33,27 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(
+        child: BlocBuilder<PopularTvBloc, PopularTvState>(
+          builder: (context, state) {
+            if (state is PopularTvLoadingState) {
+              return const Center(
                 key: Key('loading_center'),
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is PopularTvHasDataState) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeriesList[index];
-                  return TvSeriesCardListWidget(tvSeries);
+                  return TvSeriesCardListWidget(state.result[index]);
                 },
-                itemCount: data.tvSeriesList.length,
+                itemCount: state.result.length,
+              );
+            } else if (state is PopularTvErrorState) {
+              return Center(
+                key: const Key('error_message'),
+                child: Text(state.message),
               );
             } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
+              return Container();
             }
           },
         ),
