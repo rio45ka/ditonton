@@ -59,7 +59,7 @@ void main() {
   );
 
   blocTest<OnTheAirTvBloc, OnTheAirTvState>(
-    'Should emit [Loading, Error] when get Popular is unsuccessful',
+    'Should emit [Loading, Error] when get On The Air is unsuccessful',
     build: () {
       when(() => mockUseCase.execute())
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));

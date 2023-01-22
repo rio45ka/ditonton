@@ -59,7 +59,7 @@ void main() {
   );
 
   blocTest<TopRatedTvBloc, TopRatedTvState>(
-    'Should emit [Loading, Error] when get Popular is unsuccessful',
+    'Should emit [Loading, Error] when get Top Rated is unsuccessful',
     build: () {
       when(() => mockUseCase.execute())
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
