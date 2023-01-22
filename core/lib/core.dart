@@ -9,5 +9,4 @@ export 'utils/state_enum.dart';
 export 'utils/utils.dart';
 export 'utils/encrypt.dart';
 export 'utils/util_search.dart';
-export 'data/models/genre_model.dart';
-export 'data/datasources/db/database_helper.dart';
+export 'database/database_helper.dart';

@@ -48,18 +48,25 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Tv Series'),
+              onTap: () {
+                Navigator.pushNamed(context, HOME_TV_SERIES_ROUTE);
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.save_alt),
-              title: Text('Watchlist'),
+              title: Text('Watchlist Movies'),
               onTap: () {
                 Navigator.pushNamed(context, WATCHLIST_MOVIE_ROUTE);
               },
             ),
             ListTile(
+              leading: Icon(Icons.save_alt),
+              title: Text('Watchlist Tv Series'),
               onTap: () {
-                Navigator.pushNamed(context, SEARCH_TV_SERIES_ROUTE);
+                Navigator.pushNamed(context, WATCHLIST_TV_ROUTE);
               },
-              leading: Icon(Icons.search),
-              title: Text('Search Tv Series'),
             ),
             ListTile(
               onTap: () {

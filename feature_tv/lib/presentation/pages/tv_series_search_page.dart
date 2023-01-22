@@ -57,9 +57,7 @@ class TvSeriesSearchPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Container(),
-                  );
+                  return Container();
                 }
               },
             ),

@@ -1,6 +1,6 @@
-import 'package:core/data/models/genre_model.dart';
-import 'package:core/domain/entities/genre.dart';
+import 'package:feature_tv/data/model/genre_model.dart';
 import 'package:feature_tv/data/model/tv_series_detail_api_response.dart';
+import 'package:feature_tv/domain/entities/genre.dart';
 import 'package:feature_tv/domain/entities/tv_series_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 

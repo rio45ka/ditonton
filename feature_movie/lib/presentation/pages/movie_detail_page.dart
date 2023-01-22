@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/domain/entities/genre.dart';
 import 'package:core/utils/routes.dart';
+import 'package:feature_movie/domain/entities/genre.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -12,7 +12,6 @@ import '../../domain/entities/movie_detail.dart';
 import '../provider/movie_detail_notifier.dart';
 
 class MovieDetailPage extends StatefulWidget {
-
   final int id;
   MovieDetailPage({required this.id});
 

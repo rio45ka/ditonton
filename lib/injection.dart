@@ -1,4 +1,4 @@
-import 'package:core/data/datasources/db/database_helper.dart';
+import 'package:core/database/database_helper.dart';
 import 'package:feature_tv/data/datasources/tv_series_local_data_source.dart';
 import 'package:feature_tv/data/datasources/tv_series_remote_data_source.dart';
 import 'package:feature_tv/data/repositories/tv_series_repository_impl.dart';
@@ -12,10 +12,13 @@ import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_status_usecas
 import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/domain/usecases/remove_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/domain/usecases/save_tv_series_watchlist_usecase.dart';
+import 'package:feature_tv/presentation/bloc/detail_tv/detail_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/recommendations/recommendations_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/top_rated/top_rated_tv_bloc.dart';
-import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
+import 'package:feature_tv/presentation/bloc/watchlist/watchlist_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/watchlist_status/watchlist_status_tv_cubit.dart';
 import 'package:feature_movie/data/datasources/movie_local_data_source.dart';
 import 'package:feature_movie/data/datasources/movie_remote_data_source.dart';
 import 'package:feature_movie/data/repositories/movie_repository_impl.dart';
@@ -82,19 +85,7 @@ void init() {
     ),
   );
   // endregion provider : Movie
-
-  // region provider : TvSeries
-  locator.registerFactory(
-    () => TvSeriesDetailNotifier(
-      getTvSeriesDetail: locator(),
-      getTvSeriesRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
-  // endregion provider : TvSeries
-  // region provider
+  // endregion provider
 
   // region bloc
   // region bloc: movie
@@ -106,6 +97,16 @@ void init() {
   locator.registerFactory(() => PopularTvBloc(locator()));
   locator.registerFactory(() => TopRatedTvBloc(locator()));
   locator.registerFactory(() => OnTheAirTvBloc(locator()));
+  locator.registerFactory(() => DetailTvBloc(locator()));
+  locator.registerFactory(() => WatchlistTvBloc(locator()));
+  locator.registerFactory(() => RecommendationsTvBloc(locator()));
+  locator.registerFactory(
+    () => WatchlistStatusTvCubit(
+      getTvSeriesWatchListStatusUseCase: locator(),
+      saveTvSeriesWatchlistUseCase: locator(),
+      removeTvSeriesWatchlistUseCase: locator(),
+    ),
+  );
   // endregion bloc: tv series
   // endregion bloc
 

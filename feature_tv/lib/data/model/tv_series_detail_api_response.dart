@@ -1,8 +1,6 @@
-
-import 'package:core/data/models/genre_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:feature_tv/data/model/genre_model.dart';
 import 'package:feature_tv/domain/entities/tv_series_detail.dart';
-
 
 class TvSeriesDetailApiResponse extends Equatable {
   final bool adult;

@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:feature_tv/domain/entities/tv_series.dart';
+import 'package:feature_tv/domain/repositories/tv_series_repository.dart';
 import 'package:feature_tv/domain/usecases/get_popular_tv_series_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+class MockTvSeriesRepository extends Mock implements TvSeriesRepository {}
 
 void main() {
   late GetPopularTvSeriesUseCase usecase;
@@ -19,7 +20,7 @@ void main() {
 
   test('should get list of tv series popular from the repository', () async {
     // arrange
-    when(mockTvSeriesRepository.getPopularTvSeries())
+    when(() => mockTvSeriesRepository.getPopularTvSeries())
         .thenAnswer((_) async => Right(tTvSeries));
     // act
     final result = await usecase.execute();

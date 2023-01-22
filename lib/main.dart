@@ -14,16 +14,21 @@ import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:feature_tv/presentation/bloc/detail_tv/detail_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/recommendations/recommendations_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/top_rated/top_rated_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/watchlist/watchlist_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/watchlist_status/watchlist_status_tv_cubit.dart';
 import 'package:feature_tv/presentation/pages/on_the_air_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/popular_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/top_rated_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_detail_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_search_page.dart';
-import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
+import 'package:feature_tv/presentation/pages/watchlist_tv_page.dart';
+import 'package:feature_tv/presentation/pages/home_tv_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,9 +68,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesDetailNotifier>(),
-        ),
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
         ),
@@ -80,6 +82,18 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<OnTheAirTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<DetailTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<RecommendationsTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistStatusTvCubit>(),
         ),
       ],
       child: MaterialApp(
@@ -96,6 +110,8 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case '/home':
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
+            case HOME_TV_SERIES_ROUTE:
+              return MaterialPageRoute(builder: (_) => HomeTvPage());
             case POPULAR_MOVIES_ROUTE:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
             case TOP_RATED_ROUTE:
@@ -110,6 +126,8 @@ class MyApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => SearchPage());
             case WATCHLIST_MOVIE_ROUTE:
               return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+            case WATCHLIST_TV_ROUTE:
+              return MaterialPageRoute(builder: (_) => WatchlistTvPage());
             case ABOUT_ROUTE:
               return MaterialPageRoute(builder: (_) => AboutPage());
             case TOP_RATED_TV_SERIES_ROUTE:
