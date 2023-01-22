@@ -36,6 +36,7 @@ import 'package:feature_movie/domain/usecases/remove_watchlist.dart';
 import 'package:feature_movie/domain/usecases/save_watchlist.dart';
 import 'package:feature_movie/domain/usecases/search_movies.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
+import 'package:feature_movie/presentation/bloc/now_playing/now_playing_movies_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
 import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
@@ -82,6 +83,7 @@ void init() {
   locator.registerFactory(() => SearchBloc(locator()));
   locator.registerFactory(() => TopRatedMoviesBloc(locator()));
   locator.registerFactory(() => PopularMoviesBloc(locator()));
+  locator.registerFactory(() => NowPlayingMoviesBloc(locator()));
   // endregion bloc: movie
 
   // region bloc: tv series
