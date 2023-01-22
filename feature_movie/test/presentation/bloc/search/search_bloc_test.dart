@@ -5,12 +5,10 @@ import 'package:feature_movie/domain/entities/movie.dart';
 import 'package:feature_movie/domain/usecases/search_movies.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'search_bloc_test.mocks.dart';
+class MockSearchMovies extends Mock implements SearchMovies {}
 
-@GenerateMocks([SearchMovies])
 void main() {
   late SearchBloc searchBloc;
   late MockSearchMovies mockSearchMovies;
@@ -47,7 +45,7 @@ void main() {
   blocTest<SearchBloc, SearchState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(() => mockSearchMovies.execute(tQuery))
           .thenAnswer((_) async => Right(tMovieList));
       return searchBloc;
     },
@@ -58,14 +56,14 @@ void main() {
       SearchHasData(tMovieList),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(() => mockSearchMovies.execute(tQuery));
     },
   );
 
   blocTest<SearchBloc, SearchState>(
     'Should emit [Loading, Error] when get search is unsuccessful',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(() => mockSearchMovies.execute(tQuery))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       return searchBloc;
     },
@@ -76,7 +74,7 @@ void main() {
       SearchError('Server Failure'),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(() => mockSearchMovies.execute(tQuery));
     },
   );
 }

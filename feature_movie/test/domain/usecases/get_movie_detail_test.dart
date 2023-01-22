@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:feature_movie/domain/usecases/get_movie_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:feature_movie/domain/repositories/movie_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../../helpers/test_helper.mocks.dart';
+
+class MockMovieRepository extends Mock implements MovieRepository {}
 
 void main() {
   late GetMovieDetail usecase;
@@ -19,7 +21,7 @@ void main() {
 
   test('should get movie detail from the repository', () async {
     // arrange
-    when(mockMovieRepository.getMovieDetail(tId))
+    when(() => mockMovieRepository.getMovieDetail(tId))
         .thenAnswer((_) async => Right(testMovieDetail));
     // act
     final result = await usecase.execute(tId);

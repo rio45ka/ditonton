@@ -37,7 +37,6 @@ import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
 import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
-import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/domain/usecases/search_tv_series_usecase.dart';
@@ -66,11 +65,6 @@ void init() {
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
       removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => PopularMoviesNotifier(
-      locator(),
     ),
   );
   locator.registerFactory(

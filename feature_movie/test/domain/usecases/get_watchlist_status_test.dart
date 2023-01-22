@@ -1,8 +1,9 @@
 import 'package:feature_movie/domain/usecases/get_watchlist_status.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:feature_movie/domain/repositories/movie_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+class MockMovieRepository extends Mock implements MovieRepository {}
 
 void main() {
   late GetWatchListStatus usecase;
@@ -15,7 +16,7 @@ void main() {
 
   test('should get watchlist status from repository', () async {
     // arrange
-    when(mockMovieRepository.isAddedToWatchlist(1))
+    when(() => mockMovieRepository.isAddedToWatchlist(1))
         .thenAnswer((_) async => true);
     // act
     final result = await usecase.execute(1);

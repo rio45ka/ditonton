@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:feature_movie/domain/usecases/get_watchlist_movies.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:feature_movie/domain/repositories/movie_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../../helpers/test_helper.mocks.dart';
+
+class MockMovieRepository extends Mock implements MovieRepository {}
 
 void main() {
   late GetWatchlistMovies usecase;
@@ -17,7 +19,7 @@ void main() {
 
   test('should get list of movies from the repository', () async {
     // arrange
-    when(mockMovieRepository.getWatchlistMovies())
+    when(() => mockMovieRepository.getWatchlistMovies())
         .thenAnswer((_) async => Right(testMovieList));
     // act
     final result = await usecase.execute();

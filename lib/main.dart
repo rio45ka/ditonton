@@ -11,7 +11,6 @@ import 'package:feature_movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:feature_movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
-import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/presentation/bloc/detail_tv/detail_tv_bloc.dart';
@@ -61,9 +60,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
