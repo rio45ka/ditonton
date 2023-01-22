@@ -1,9 +1,8 @@
-import 'package:core/core.dart';
 import 'package:core/utils/routes.dart';
-import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
+import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/widgets/tv_series_card_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnTheAirTvSeriesPage extends StatefulWidget {
   @override
@@ -14,9 +13,8 @@ class _OnTheAirTvSeriesPageState extends State<OnTheAirTvSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<OnTheAirTvSeriesNotifier>(context, listen: false)
-            .fetchOnTheAirTvSeries());
+    Future.microtask(
+        () => context.read<OnTheAirTvBloc>().add(FetchOnTheAirTvSeries()));
   }
 
   @override
@@ -35,26 +33,27 @@ class _OnTheAirTvSeriesPageState extends State<OnTheAirTvSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<OnTheAirTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(
+        child: BlocBuilder<OnTheAirTvBloc, OnTheAirTvState>(
+          builder: (context, state) {
+            if (state is OnTheAirTvLoadingState) {
+              return const Center(
                 key: Key('loading_center'),
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is OnTheAirTvHasDataState) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeriesList[index];
-                  return TvSeriesCardListWidget(tvSeries);
+                  return TvSeriesCardListWidget(state.result[index]);
                 },
-                itemCount: data.tvSeriesList.length,
+                itemCount: state.result.length,
+              );
+            } else if (state is OnTheAirTvErrorState) {
+              return Center(
+                key: const Key('error_message'),
+                child: Text(state.message),
               );
             } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
+              return Container();
             }
           },
         ),

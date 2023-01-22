@@ -12,9 +12,9 @@ import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_status_usecas
 import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/domain/usecases/remove_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/domain/usecases/save_tv_series_watchlist_usecase.dart';
+import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/top_rated/top_rated_tv_bloc.dart';
-import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
 import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:feature_movie/data/datasources/movie_local_data_source.dart';
 import 'package:feature_movie/data/datasources/movie_remote_data_source.dart';
@@ -38,7 +38,6 @@ import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/domain/usecases/search_tv_series_usecase.dart';
-import 'package:feature_tv/presentation/provider/tv_series_search_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
@@ -86,22 +85,12 @@ void init() {
 
   // region provider : TvSeries
   locator.registerFactory(
-    () => OnTheAirTvSeriesNotifier(
-      getOnTheAirTvSeriesUseCase: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => TvSeriesDetailNotifier(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
       removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSeriesSearchNotifier(
-      searchTvSeriesUseCase: locator(),
     ),
   );
   // endregion provider : TvSeries
@@ -116,6 +105,7 @@ void init() {
   locator.registerFactory(() => SearchTvBloc(locator()));
   locator.registerFactory(() => PopularTvBloc(locator()));
   locator.registerFactory(() => TopRatedTvBloc(locator()));
+  locator.registerFactory(() => OnTheAirTvBloc(locator()));
   // endregion bloc: tv series
   // endregion bloc
 

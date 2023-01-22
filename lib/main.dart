@@ -14,6 +14,7 @@ import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/top_rated/top_rated_tv_bloc.dart';
@@ -22,7 +23,6 @@ import 'package:feature_tv/presentation/pages/popular_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/top_rated_tv_series_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_detail_page.dart';
 import 'package:feature_tv/presentation/pages/tv_series_search_page.dart';
-import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
 import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,9 +64,6 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<OnTheAirTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvSeriesDetailNotifier>(),
         ),
         BlocProvider(
@@ -80,7 +77,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<TopRatedTvBloc>(),
-        )
+        ),
+        BlocProvider(
+          create: (_) => di.locator<OnTheAirTvBloc>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
