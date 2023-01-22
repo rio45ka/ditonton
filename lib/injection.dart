@@ -13,8 +13,8 @@ import 'package:feature_tv/domain/usecases/get_tv_series_watchlist_usecase.dart'
 import 'package:feature_tv/domain/usecases/remove_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/domain/usecases/save_tv_series_watchlist_usecase.dart';
 import 'package:feature_tv/presentation/bloc/search/search_tv_bloc.dart';
+import 'package:feature_tv/presentation/bloc/top_rated/top_rated_tv_bloc.dart';
 import 'package:feature_tv/presentation/provider/on_the_air_tv_series_notifier.dart';
-import 'package:feature_tv/presentation/provider/top_rated_tv_series_notifier.dart';
 import 'package:feature_tv/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:feature_movie/data/datasources/movie_local_data_source.dart';
 import 'package:feature_movie/data/datasources/movie_remote_data_source.dart';
@@ -86,11 +86,6 @@ void init() {
 
   // region provider : TvSeries
   locator.registerFactory(
-    () => TopRatedTvSeriesNotifier(
-      getTopRatedTvSeriesUseCase: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => OnTheAirTvSeriesNotifier(
       getOnTheAirTvSeriesUseCase: locator(),
     ),
@@ -120,6 +115,7 @@ void init() {
   // region bloc: tv series
   locator.registerFactory(() => SearchTvBloc(locator()));
   locator.registerFactory(() => PopularTvBloc(locator()));
+  locator.registerFactory(() => TopRatedTvBloc(locator()));
   // endregion bloc: tv series
   // endregion bloc
 
