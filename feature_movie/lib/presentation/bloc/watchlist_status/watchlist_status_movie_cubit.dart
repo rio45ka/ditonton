@@ -5,8 +5,6 @@ import 'package:feature_movie/domain/usecases/get_watchlist_status.dart';
 import 'package:feature_movie/domain/usecases/remove_watchlist.dart';
 import 'package:feature_movie/domain/usecases/save_watchlist.dart';
 
-part 'watchlist_status_movie_state.dart';
-
 class WatchlistStatusMovieCubit extends Cubit<WatchlistStatusMovieState> {
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
@@ -49,4 +47,17 @@ class WatchlistStatusMovieCubit extends Cubit<WatchlistStatusMovieState> {
           isAddedWatchlist: getStatus, message: data)),
     );
   }
+}
+
+class WatchlistStatusMovieState extends Equatable {
+  final bool isAddedWatchlist;
+  final String message;
+
+  const WatchlistStatusMovieState({
+    required this.isAddedWatchlist,
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [isAddedWatchlist];
 }
