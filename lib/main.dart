@@ -8,15 +8,14 @@ import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart
 import 'package:feature_movie/presentation/bloc/recommendations/recommendations_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_movie/presentation/bloc/top_rated/top_rated_movies_bloc.dart';
+import 'package:feature_movie/presentation/bloc/watchlist/watchlist_movie_bloc.dart';
 import 'package:feature_movie/presentation/pages/home_movie_page.dart';
 import 'package:feature_movie/presentation/pages/movie_detail_page.dart';
 import 'package:feature_movie/presentation/pages/popular_movies_page.dart';
 import 'package:feature_movie/presentation/pages/search_page.dart';
 import 'package:feature_movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:feature_movie/presentation/pages/watchlist_movies_page.dart';
-import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
-import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/presentation/bloc/detail_tv/detail_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
@@ -59,8 +58,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieListNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistMovieBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<DetailMovieBloc>(),
