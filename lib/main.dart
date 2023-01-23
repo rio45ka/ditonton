@@ -1,5 +1,6 @@
 import 'package:about/about.dart';
 import 'package:core/core.dart';
+import 'package:core/utils/http_ssl_spinning.dart';
 import 'package:core/utils/routes.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:feature_movie/presentation/bloc/detail/detail_movie_bloc.dart';
@@ -46,8 +47,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await HttpSSLPinning.init();
   di.init();
-
   runApp(MyApp());
 }
 

@@ -1,4 +1,5 @@
 import 'package:core/database/database_helper.dart';
+import 'package:core/utils/http_ssl_spinning.dart';
 import 'package:feature_movie/presentation/bloc/detail/detail_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart';
 import 'package:feature_movie/presentation/bloc/recommendations/recommendations_movie_bloc.dart';
@@ -46,7 +47,6 @@ import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/domain/usecases/search_tv_series_usecase.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -177,5 +177,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
 }
