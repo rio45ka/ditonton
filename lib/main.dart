@@ -9,6 +9,7 @@ import 'package:feature_movie/presentation/bloc/recommendations/recommendations_
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_movie/presentation/bloc/top_rated/top_rated_movies_bloc.dart';
 import 'package:feature_movie/presentation/bloc/watchlist/watchlist_movie_bloc.dart';
+import 'package:feature_movie/presentation/bloc/watchlist_status/watchlist_status_movie_cubit.dart';
 import 'package:feature_movie/presentation/pages/home_movie_page.dart';
 import 'package:feature_movie/presentation/pages/movie_detail_page.dart';
 import 'package:feature_movie/presentation/pages/popular_movies_page.dart';
@@ -57,6 +58,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieListNotifier>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistStatusMovieCubit>(),
         ),
         BlocProvider(
           create: (_) => di.locator<WatchlistMovieBloc>(),
