@@ -17,7 +17,6 @@ import 'package:feature_movie/presentation/pages/popular_movies_page.dart';
 import 'package:feature_movie/presentation/pages/search_page.dart';
 import 'package:feature_movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:feature_movie/presentation/pages/watchlist_movies_page.dart';
-import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
 import 'package:feature_tv/presentation/bloc/detail_tv/detail_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/on_the_air/on_the_air_tv_bloc.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
@@ -57,9 +56,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
-        ),
         BlocProvider(
           create: (_) => di.locator<WatchlistStatusMovieCubit>(),
         ),

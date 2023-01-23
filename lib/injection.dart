@@ -43,45 +43,12 @@ import 'package:feature_movie/presentation/bloc/watchlist/watchlist_movie_bloc.d
 import 'package:feature_movie/presentation/bloc/now_playing/now_playing_movies_bloc.dart';
 import 'package:feature_movie/presentation/bloc/watchlist_status/watchlist_status_movie_cubit.dart';
 import 'package:feature_tv/presentation/bloc/popular/popular_tv_bloc.dart';
-import 'package:feature_movie/presentation/provider/movie_detail_notifier.dart';
-import 'package:feature_movie/presentation/provider/movie_list_notifier.dart';
-import 'package:feature_movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:feature_tv/domain/usecases/search_tv_series_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
 void init() {
-  // region provider
-  // region provider : Movie
-  locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-      getPopularTvSeriesUseCase: locator(),
-      getTopRatedTvSeriesUseCase: locator(),
-      getOnTheAirTvSeriesUseCase: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
-      getTvSeriesWatchlistUseCase: locator(),
-    ),
-  );
-  // endregion provider : Movie
-  // endregion provider
-
   // region bloc
   // region bloc: movie
   locator.registerFactory(() => SearchBloc(locator()));
