@@ -2,8 +2,10 @@ import 'package:about/about.dart';
 import 'package:core/core.dart';
 import 'package:core/utils/routes.dart';
 import 'package:ditonton/firebase_options.dart';
+import 'package:feature_movie/presentation/bloc/detail/detail_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/now_playing/now_playing_movies_bloc.dart';
 import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart';
+import 'package:feature_movie/presentation/bloc/recommendations/recommendations_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/search/search_bloc.dart';
 import 'package:feature_movie/presentation/bloc/top_rated/top_rated_movies_bloc.dart';
 import 'package:feature_movie/presentation/pages/home_movie_page.dart';
@@ -58,10 +60,13 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieListNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<DetailMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<RecommendationsMovieBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<NowPlayingMoviesBloc>(),

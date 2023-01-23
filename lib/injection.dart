@@ -1,5 +1,7 @@
 import 'package:core/database/database_helper.dart';
+import 'package:feature_movie/presentation/bloc/detail/detail_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/popular/popular_movies_bloc.dart';
+import 'package:feature_movie/presentation/bloc/recommendations/recommendations_movie_bloc.dart';
 import 'package:feature_movie/presentation/bloc/top_rated/top_rated_movies_bloc.dart';
 import 'package:feature_tv/data/datasources/tv_series_local_data_source.dart';
 import 'package:feature_tv/data/datasources/tv_series_remote_data_source.dart';
@@ -84,6 +86,8 @@ void init() {
   locator.registerFactory(() => TopRatedMoviesBloc(locator()));
   locator.registerFactory(() => PopularMoviesBloc(locator()));
   locator.registerFactory(() => NowPlayingMoviesBloc(locator()));
+  locator.registerFactory(() => RecommendationsMovieBloc(locator()));
+  locator.registerFactory(() => DetailMovieBloc(locator()));
   // endregion bloc: movie
 
   // region bloc: tv series
