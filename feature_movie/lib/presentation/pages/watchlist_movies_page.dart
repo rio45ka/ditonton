@@ -1,13 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/utils/routes.dart';
-import 'package:feature_tv/domain/entities/tv_series.dart';
-import 'package:feature_tv/presentation/widgets/tv_series_card_grid_widget.dart';
-
+import 'package:feature_movie/presentation/bloc/watchlist/watchlist_movie_bloc.dart';
+import 'package:feature_movie/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../domain/entities/movie.dart';
-import '../provider/watchlist_movie_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   const WatchlistMoviesPage({super.key});
@@ -22,9 +17,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   void initState() {
     super.initState();
     Future.microtask(
-        () => Provider.of<WatchlistMovieNotifier>(context, listen: false)
-          ..fetchWatchlistMovies()
-          ..fetchWatchlistTvSeries());
+        () => context.read<WatchlistMovieBloc>().add(FetchWatchlistMovie()));
   }
 
   @override
@@ -34,10 +27,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   }
 
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistTvSeries();
+    context.read<WatchlistMovieBloc>().add(FetchWatchlistMovie());
   }
 
   @override
@@ -46,44 +36,43 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
       appBar: AppBar(
         title: const Text('Watchlist'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Consumer<WatchlistMovieNotifier>(
-              builder: (context, data, child) {
-                if (data.watchlistState == RequestState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (data.watchlistState == RequestState.Loaded) {
-                  return _buildListMovie(data.watchlistMovies);
-                } else {
-                  return Center(
-                    key: const Key('error_message'),
-                    child: Text(data.message),
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 16.0),
-            Consumer<WatchlistMovieNotifier>(
-              builder: (context, data, child) {
-                if (data.watchlistTvSeriesState == RequestState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (data.watchlistTvSeriesState == RequestState.Loaded) {
-                  return _buildListTvSeries(data.watchlistTvSeries);
-                } else {
-                  return Center(
-                    key: const Key('error_message'),
-                    child: Text(data.message),
-                  );
-                }
-              },
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<WatchlistMovieBloc, WatchlistMovieState>(
+          builder: (context, state) {
+            if (state is WatchlistMovieLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is WatchlistMovieHasDataState) {
+              final result = state.result;
+              return result.isEmpty
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: const Center(
+                        child: Text(
+                          'No Data',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemBuilder: (context, index) {
+                        return MovieCard(result[index]);
+                      },
+                      itemCount: result.length,
+                    );
+            } else if (state is WatchlistMovieErrorState) {
+              return Center(
+                key: const Key('error_message'),
+                child: Text(state.message),
+              );
+            } else if (state is WatchlistMovieInitialState) {
+              return Container();
+            } else {
+              return const Center(child: Text('Error BLoC'));
+            }
+          },
         ),
       ),
     );
@@ -93,113 +82,5 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   void dispose() {
     routeObserver.unsubscribe(this);
     super.dispose();
-  }
-
-  Widget _buildListMovie(List<Movie> movies) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(
-            'Movie Watchlist',
-            style: kHeading6.copyWith(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        movies.isEmpty
-            ? Container(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: const Center(
-                  child: Text(
-                    'No Data',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            : SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final movie = movies[index];
-                    return Container(
-                      padding: const EdgeInsets.all(8),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            MOVIE_DETAIL_ROUTE,
-                            arguments: movie.id,
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16)),
-                          child: CachedNetworkImage(
-                            imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: movies.length,
-                ),
-              ),
-      ],
-    );
-  }
-
-  Widget _buildListTvSeries(List<TvSeries> tvSeriesList) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(
-            'Tv Series Watchlist',
-            style: kHeading6.copyWith(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        tvSeriesList.isEmpty
-            ? Container(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: const Center(
-                  child: Text(
-                    'No Data',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            : SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return TvSeriesCardGridWidget(
-                      tvSeries: tvSeriesList[index],
-                    );
-                  },
-                  itemCount: tvSeriesList.length,
-                ),
-              ),
-      ],
-    );
   }
 }

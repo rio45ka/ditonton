@@ -36,6 +36,7 @@ class SearchPage extends StatelessWidget {
               builder: (context, state) {
                 if (state is SearchLoading) {
                   return const Center(
+                    key: Key('ui_search_loading_key'),
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is SearchHasData) {
@@ -52,6 +53,7 @@ class SearchPage extends StatelessWidget {
                   );
                 } else if (state is SearchError) {
                   return Expanded(
+                    key: Key('ui_search_tv_error_key'),
                     child: Center(
                       child: Text(state.message),
                     ),
